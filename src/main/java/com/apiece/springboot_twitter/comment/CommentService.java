@@ -25,7 +25,7 @@ public class CommentService {
     public CommentResponse createComment(Long postId, CommentRequest request) {
 
         Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new IllegalArgumentException("게시글을 찾을 수 없습니다!"));
+                .orElseThrow(() -> new IllegalArgumentException("게시글을 찾을 수 없습니다!!"));
 
         Comment comment = Comment.builder()
                 .content(request.content())
