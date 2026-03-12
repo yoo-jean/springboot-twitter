@@ -66,9 +66,10 @@ jobs:
                 "docker rm springboot-twitter || true",
                 "docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/springboot-twitter-linux:latest",
                 "docker run -d --name springboot-twitter -p 8080:8080 -e SPRING_DATASOURCE_URL=jdbc:mysql://${{ secrets.RDS_ENDPOINT }}:3306/twitterdb -e SPRING_DATASOURCE_USERNAME=${{ secrets.RDS_USERNAME }} -e SPRING_DATASOURCE_PASSWORD=${{ secrets.RDS_PASSWORD }} ${{ secrets.DOCKER_HUB_USERNAME }}/springboot-twitter-linux:latest",
-                "sleep 15",
+                "sleep 40",
                 "docker ps -a",
-                "docker logs springboot-twitter --tail 200 || true"
+                "docker logs springboot-twitter --tail 300 || true",
+                "curl -I http://localhost:8080 || true"
               ]
             }' \
             --region "${{ secrets.AWS_REGION }}" \
@@ -86,4 +87,3 @@ jobs:
             --command-id "$COMMAND_ID" \
             --instance-id "${{ secrets.EC2_INSTANCE_ID }}" \
             --region "${{ secrets.AWS_REGION }}"
-          
